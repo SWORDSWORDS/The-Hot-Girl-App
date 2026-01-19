@@ -46,31 +46,6 @@ class _StartRoutine extends State<StartRoutine> {
                 ),
               ),
 
-              //Calorie Defecit Button
-              Padding(
-                padding: const EdgeInsets.all(
-                  padVal,
-                ), //creates padding around the button
-                child: SizedBox(
-                  //sets the size of the button
-                  height: 100,
-                  width: 300,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: pink2.withValues(alpha: 1.0),
-                      foregroundColor: textColor,
-                    ),
-                    child: Text(
-                      'Count Calories🍰',
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    //when the button is pressed, go to the Start A Routine page
-                    onPressed: () =>
-                        Navigator.pushNamed(context, 'startRoutine'),
-                  ),
-                ),
-              ),
-
               //Gym Button
               Padding(
                 padding: const EdgeInsets.all(padVal),
