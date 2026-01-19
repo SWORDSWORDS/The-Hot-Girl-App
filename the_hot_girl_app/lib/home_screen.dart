@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     //padVal is the value for how much padding is around each button.
-    const double padVal = 20;
+    const double padVal = 10;
     Color textColor = butter.withValues(alpha: 1.0);
 
     //initialIndex determines which icon the bottom navigator will start on (See create_bottom_nav.dart)
@@ -29,90 +29,118 @@ class _HomePageState extends State<HomePage> {
 
     //scaffold that makes the UI for the homepage
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            //Title Text
-            Padding(
-              padding: const EdgeInsets.all(padVal),
-              child: Text(
-                "The H🔥t Girl App🎀",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.allura(
-                  fontSize: 60.0,
-                  color: pink2.withValues(alpha: 1.0),
-                  fontWeight: FontWeight.bold,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              //Title Text
+              Padding(
+                padding: const EdgeInsets.all(padVal),
+                child: Text(
+                  "The H🔥t Girl App🎀",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.allura(
+                    fontSize: 60.0,
+                    color: pink2.withValues(alpha: 1.0),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            ),
 
-            //Start A Routine Button
-            Padding(
-              padding: const EdgeInsets.all(
-                padVal,
-              ), //creates padding around the button
-              child: SizedBox(
-                //sets the size of the button
-                height: 100,
-                width: 300,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: pink2.withValues(alpha: 1.0),
-                    foregroundColor: textColor,
+              //Daily Todo Button
+              Padding(
+                padding: const EdgeInsets.all(padVal),
+                child: SizedBox(
+                  height: 100,
+                  width: 300,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: pink2.withValues(alpha: 1.0),
+                      foregroundColor: textColor,
+                    ),
+                    child: const Text(
+                      'Daily Todo 🎀',
+                      style: TextStyle(fontSize: 30),
+                    ),
+                    //when the button is pressed, go to the Daily Todo page
+                    onPressed: () => Navigator.pushNamed(context, 'dailyTodo'),
                   ),
-                  child: Text(
-                    'Start A Routine 🔥',
-                    style: TextStyle(fontSize: 30),
-                  ),
-                  //when the button is pressed, go to the Start A Routine page
-                  onPressed: () => Navigator.pushNamed(context, 'startRoutine'),
                 ),
               ),
-            ),
 
-            //Daily Todo Button
-            Padding(
-              padding: const EdgeInsets.all(padVal),
-              child: SizedBox(
-                height: 100,
-                width: 300,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: pink2.withValues(alpha: 1.0),
-                    foregroundColor: textColor,
+              //Calorie Counting Button
+              Padding(
+                padding: const EdgeInsets.all(
+                  padVal,
+                ), //creates padding around the button
+                child: SizedBox(
+                  //sets the size of the button
+                  height: 100,
+                  width: 300,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: pink2.withValues(alpha: 1.0),
+                      foregroundColor: textColor,
+                    ),
+                    child: Text(
+                      'Count Calories 🍰',
+                      style: TextStyle(fontSize: 30),
+                    ),
+                    //when the button is pressed, go to the Start A Routine page
+                    onPressed: () => Navigator.pushNamed(context, 'countCals'),
                   ),
-                  child: const Text(
-                    'Daily Todo 🩰',
-                    style: TextStyle(fontSize: 30),
-                  ),
-                  //when the button is pressed, go to the Daily Todo page
-                  onPressed: () => Navigator.pushNamed(context, 'dailyTodo'),
                 ),
               ),
-            ),
 
-            //Log Button
-            Padding(
-              padding: const EdgeInsets.all(padVal),
-              child: SizedBox(
-                height: 100,
-                width: 300,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: pink2.withValues(alpha: 1.0),
-                    foregroundColor: textColor,
+              //Start A Routine Button
+              Padding(
+                padding: const EdgeInsets.all(
+                  padVal,
+                ), //creates padding around the button
+                child: SizedBox(
+                  //sets the size of the button
+                  height: 100,
+                  width: 300,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: pink2.withValues(alpha: 1.0),
+                      foregroundColor: textColor,
+                    ),
+                    child: Text(
+                      'Start a Routine 🔥',
+                      style: TextStyle(fontSize: 30),
+                    ),
+                    //when the button is pressed, go to the Start A Routine page
+                    onPressed: () =>
+                        Navigator.pushNamed(context, 'startRoutine'),
                   ),
-                  child: const Text(
-                    'Weekly Log 🎀',
-                    style: TextStyle(fontSize: 30),
-                  ),
-                  //when the button is pressed, go to the Weekly Log page
-                  onPressed: () => Navigator.pushNamed(context, 'weeklyLog'),
                 ),
               ),
-            ),
-          ],
+
+              //Log Button
+              Padding(
+                padding: const EdgeInsets.all(padVal),
+                child: SizedBox(
+                  height: 100,
+                  width: 300,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: pink2.withValues(alpha: 1.0),
+                      foregroundColor: textColor,
+                    ),
+                    child: const Text(
+                      'Weekly Log 🩰',
+                      style: TextStyle(fontSize: 30),
+                    ),
+                    //when the button is pressed, go to the Weekly Log page
+                    onPressed: () => Navigator.pushNamed(context, 'weeklyLog'),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
 

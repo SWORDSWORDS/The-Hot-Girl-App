@@ -6,6 +6,7 @@ import 'home_screen.dart';
 import 'start_routine.dart';
 import 'daily_todo.dart';
 import 'weekly_log.dart';
+import 'count_calories.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 //FUNCTIONS/////////////////////////////////////////////////////////////////////////////////////
@@ -48,6 +49,9 @@ class MyApp extends StatelessWidget {
 
           case 'dailyTodo':
             return MaterialPageRoute(builder: (context) => const DailyTodo());
+
+          case 'countCals':
+            return MaterialPageRoute(builder: (context) => const CountCals());
 
           case 'weeklyLog':
             return MaterialPageRoute(
