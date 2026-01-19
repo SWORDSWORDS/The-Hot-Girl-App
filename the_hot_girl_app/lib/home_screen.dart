@@ -22,6 +22,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     //padVal is the value for how much padding is around each button.
     const double padVal = 20;
+    Color textColor = butter.withValues(alpha: 1.0);
 
     //initialIndex determines which icon the bottom navigator will start on (See create_bottom_nav.dart)
     int initialIndex = 1;
@@ -40,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                 textAlign: TextAlign.center,
                 style: GoogleFonts.allura(
                   fontSize: 60.0,
-                  color: pink3.withValues(alpha: 1.0),
+                  color: pink2.withValues(alpha: 1.0),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -58,10 +59,10 @@ class _HomePageState extends State<HomePage> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: pink2.withValues(alpha: 1.0),
-                    foregroundColor: butter.withValues(alpha: 1.0),
+                    foregroundColor: textColor,
                   ),
                   child: Text(
-                    'Start A Routine 🍓',
+                    'Start A Routine 🔥',
                     style: TextStyle(fontSize: 30),
                   ),
                   //when the button is pressed, go to the Start A Routine page
@@ -79,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: pink2.withValues(alpha: 1.0),
-                    foregroundColor: butter.withValues(alpha: 1.0),
+                    foregroundColor: textColor,
                   ),
                   child: const Text(
                     'Daily Todo 🩰',
@@ -100,10 +101,10 @@ class _HomePageState extends State<HomePage> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: pink2.withValues(alpha: 1.0),
-                    foregroundColor: butter.withValues(alpha: 1.0),
+                    foregroundColor: textColor,
                   ),
                   child: const Text(
-                    'Weekly Log 🌸',
+                    'Weekly Log 🎀',
                     style: TextStyle(fontSize: 30),
                   ),
                   //when the button is pressed, go to the Weekly Log page
