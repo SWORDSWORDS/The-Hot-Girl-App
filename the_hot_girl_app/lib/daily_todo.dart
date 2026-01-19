@@ -1,150 +1,272 @@
 //IMPORTS///////////////////////////////////////////////////////////////////////
+import 'package:the_hot_girl_app/new_day_checker.dart';
 import 'package:the_hot_girl_app/theme_color_palette.dart';
 import 'create_bottom_nav.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 //CLASSES////////////////////////////////////////////////////////////////////
 class DailyTodo extends StatefulWidget {
   const DailyTodo({super.key});
 
-  final String title = "🎀To Do🐇:";
+  final String title = "🐇To Do🎀:";
 
   @override
   State<DailyTodo> createState() => _DailyTodo();
 }
 
 class _DailyTodo extends State<DailyTodo> {
-  int _counter = 30;
-  String buttonMessage = 'Tap the button to start!';
-  Color buttonColor = pink3.withValues(alpha: 1.0);
-  bool _buttonUnpressed = false;
-  bool merpoCalled = false;
-  Row myButtons = const Row();
+  //declare variables
+  int initialIndex = 0;
+  Color textColor = pink2.withValues(alpha: 1.0);
+  Color actvColor = pink2.withValues(alpha: 1.0);
+  Color chckColor = butter.withValues(alpha: 1.0);
 
-  void _decreaseCounter() async {
-    Route routeArgs = ModalRoute.of(context)!;
-
-    while (_buttonUnpressed && !merpoCalled && routeArgs.isCurrent) {
-      setState(() {
-        buttonMessage = 'Hold down until you reach your destination.';
-        buttonColor = pink2.withValues(alpha: 1.0);
-        if (_counter > 0) {
-          _counter--;
-        }
-        if (_counter == 0) {
-          callMerpo(context);
-        }
-      });
-
-      // wait a second
-      await Future.delayed(const Duration(milliseconds: 1000));
-    }
-
-    while (!_buttonUnpressed) {
-      setState(() {
-        buttonMessage = "You are holding the button.";
-        buttonColor = pink2.withValues(alpha: 1.0);
-      });
-
-      // wait a second
-      await Future.delayed(const Duration(milliseconds: 1000));
-    }
-  }
-
-  Row makeButtons() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(15),
-          child: ElevatedButton(
-            onPressed: () => callMerpo(context),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: butter.withValues(alpha: 1.0),
-            ),
-            child: const Text('CALL MERPO'),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(15),
-          child: ElevatedButton(
-            onPressed: () => Navigator.pushNamed(context, 'home'),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: pinkBlack.withValues(alpha: 1.0),
-            ),
-            child: const Text('Return to Home Page'),
-          ),
-        ),
-      ],
-    );
-  }
-
-  void callMerpo(BuildContext context) {
-    merpoCalled = true;
-  }
+  bool _isCheckedSuppl = false;
+  bool _isCheckedWater = false;
+  bool _isCheckedLang = false;
+  bool _isCheckedGym = false;
+  bool _isCheckedExfo = false;
+  bool _isCheckedShave = false;
+  bool hasBuiltOnce = false;
+  String checkboxKeySuppl = "isSupplChecked";
+  String checkboxKeyWater = "isWaterChecked";
+  String checkboxKeyLang = "isLangChecked";
+  String checkboxKeyGym = "isGymChecked";
+  String checkboxKeyExfo = "isExfoChecked";
+  String checkboxKeyShave = "isShaveChecked";
 
   @override
   Widget build(BuildContext context) {
-    double contSize = 300;
-    myButtons = makeButtons();
-    int initialIndex = 0;
+    //padVal is the value for how much padding is around each button.
+    const double padVal = 10;
+    // Load stored state
+    _loadCheckboxState();
 
+    //reset all values if a day has passed
+    if (!hasBuiltOnce) {
+      _resetIfNewDay();
+      hasBuiltOnce = true;
+    }
+
+    //scaffold that makes the UI for the homepage
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
-      body: Center(
+      body: Align(
+        alignment: Alignment.topCenter,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            //Title Text
             Padding(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(padVal),
               child: Text(
-                'Seconds: $_counter',
-                style: TextStyle(
-                  fontSize: 40.0,
-                  color: butter.withValues(alpha: 1.0),
-                ),
+                "🎀To Do🐇: ",
                 textAlign: TextAlign.center,
+                style: GoogleFonts.allura(
+                  fontSize: 60.0,
+                  color: textColor,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-            Listener(
-              onPointerDown: (details) {
-                _buttonUnpressed = false;
-                _counter = 30; //reset timer when user presses down
-              },
-              onPointerUp: (details) {
-                _buttonUnpressed = true;
-                _decreaseCounter();
-              },
-              child: Container(
-                width: contSize,
-                height: contSize,
-                decoration: BoxDecoration(
-                  color: buttonColor,
-                  shape: BoxShape.circle,
+
+            //Checkbox for Supplements
+            Padding(
+              padding: const EdgeInsets.all(0),
+              child: CheckboxListTile(
+                title: Text(
+                  "Take Supplement(s)",
+                  style: TextStyle(fontSize: 35.0, color: textColor),
                 ),
-                padding: const EdgeInsets.all(16.0),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    buttonMessage,
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      color: butter.withValues(alpha: 1.0),
-                    ),
-                    textAlign: TextAlign.center,
+                value: _isCheckedSuppl, // The current value
+                onChanged: (bool? newValue) {
+                  setState(() {
+                    _isCheckedSuppl =
+                        newValue ?? false; // Update the state when tapped
+                  });
+                  _saveCheckboxState(checkboxKeySuppl, _isCheckedSuppl);
+                },
+                activeColor: actvColor,
+                checkColor: chckColor,
+                side: BorderSide(
+                  color: textColor, // Border color when unselected
+                  width: 1.5,
+                ),
+              ),
+            ),
+
+            //Checkbox for Water Intake
+            Padding(
+              padding: const EdgeInsets.all(0),
+              child: CheckboxListTile(
+                title: Text(
+                  "Drink 72 oz of water",
+                  style: TextStyle(fontSize: 35.0, color: textColor),
+                ),
+                value: _isCheckedWater, // The current value
+                onChanged: (bool? newValue) async {
+                  setState(() {
+                    _isCheckedWater =
+                        newValue ?? false; // Update the state when tapped
+                  });
+                  _saveCheckboxState(checkboxKeyWater, _isCheckedWater);
+                },
+                activeColor: actvColor,
+                checkColor: chckColor,
+                side: BorderSide(
+                  color: textColor, // Border color when unselected
+                  width: 1.5,
+                ),
+              ),
+            ),
+
+            //Checkbox for Language Practice
+            Padding(
+              padding: const EdgeInsets.all(0),
+              child: CheckboxListTile(
+                title: Text(
+                  "Practice Korean & French",
+                  style: TextStyle(fontSize: 34.2, color: textColor),
+                ),
+                value: _isCheckedLang, // The current value
+                onChanged: (bool? newValue) {
+                  setState(() {
+                    _isCheckedLang =
+                        newValue ?? false; // Update the state when tapped
+                  });
+                  _saveCheckboxState(checkboxKeyLang, _isCheckedLang);
+                },
+                activeColor: actvColor,
+                checkColor: chckColor,
+                side: BorderSide(
+                  color: textColor, // Border color when unselected
+                  width: 1.5,
+                ),
+              ),
+            ),
+
+            //Checkbox for Gym
+            if (DateTime.now().weekday == DateTime.monday ||
+                DateTime.now().weekday == DateTime.wednesday ||
+                DateTime.now().weekday == DateTime.friday) ...{
+              Padding(
+                padding: const EdgeInsets.all(0),
+                child: CheckboxListTile(
+                  title: Text(
+                    "Gym",
+                    style: TextStyle(fontSize: 34.2, color: textColor),
+                  ),
+                  value: _isCheckedGym, // The current value
+                  onChanged: (bool? newValue) {
+                    setState(() {
+                      _isCheckedGym =
+                          newValue ?? false; // Update the state when tapped
+                    });
+                    _saveCheckboxState(checkboxKeyGym, _isCheckedGym);
+                  },
+                  activeColor: actvColor,
+                  checkColor: chckColor,
+                  side: BorderSide(
+                    color: textColor, // Border color when unselected
+                    width: 1.5,
                   ),
                 ),
               ),
-            ),
+            },
 
-            const Padding(padding: EdgeInsets.all(15)),
+            //Checkbox for Exfoliating
+            if (DateTime.now().weekday == DateTime.thursday) ...{
+              Padding(
+                padding: const EdgeInsets.all(0),
+                child: CheckboxListTile(
+                  title: Text(
+                    "Exfoliate ",
+                    style: TextStyle(fontSize: 35.0, color: textColor),
+                  ),
+                  value: _isCheckedExfo, // The current value
+                  onChanged: (bool? newValue) {
+                    setState(() {
+                      _isCheckedExfo =
+                          newValue ?? false; // Update the state when tapped
+                    });
+                    _saveCheckboxState(checkboxKeyExfo, _isCheckedExfo);
+                  },
+                  activeColor: actvColor,
+                  checkColor: chckColor,
+                  side: BorderSide(
+                    color: textColor, // Border color when unselected
+                    width: 1.5,
+                  ),
+                ),
+              ),
+            },
 
-            _buttonUnpressed
-                ? Visibility(visible: true, child: myButtons)
-                : Visibility(visible: false, child: myButtons), //ternary
+            //Checkbox for Shaving
+            if (DateTime.now().weekday == DateTime.friday) ...{
+              Padding(
+                padding: const EdgeInsets.all(0),
+                child: CheckboxListTile(
+                  title: Text(
+                    "Shave",
+                    style: TextStyle(fontSize: 35.0, color: textColor),
+                  ),
+                  value: _isCheckedShave, // The current value
+                  onChanged: (bool? newValue) {
+                    setState(() {
+                      _isCheckedShave =
+                          newValue ?? false; // Update the state when tapped
+                    });
+                    _saveCheckboxState(checkboxKeyShave, _isCheckedShave);
+                  },
+                  activeColor: actvColor,
+                  checkColor: chckColor,
+                  side: BorderSide(
+                    color: textColor, // Border color when unselected
+                    width: 1.5,
+                  ),
+                ),
+              ),
+            },
           ],
         ),
       ),
+
+      //creates the bottom navigator menu (see create_bottom_nav.dart)
       bottomNavigationBar: BottomNav(initialIndex),
     );
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////FUNCTIONS///////////////////
+  // Save state
+  void _saveCheckboxState(String key, bool value) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool(key, value);
+  }
+
+  //load checkbox states
+  void _loadCheckboxState() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _isCheckedSuppl = prefs.getBool(checkboxKeySuppl) ?? false;
+      _isCheckedWater = prefs.getBool(checkboxKeyWater) ?? false;
+      _isCheckedLang = prefs.getBool(checkboxKeyLang) ?? false;
+      _isCheckedExfo = prefs.getBool(checkboxKeyExfo) ?? false;
+      _isCheckedShave = prefs.getBool(checkboxKeyShave) ?? false;
+      _isCheckedGym = prefs.getBool(checkboxKeyGym) ?? false;
+    });
+  }
+
+  //reset checkboxes daily
+  void _resetIfNewDay() async {
+    bool isNewDay = await DayChecker.isNewDay();
+    if (isNewDay) {
+      _saveCheckboxState(checkboxKeySuppl, false);
+      _saveCheckboxState(checkboxKeyWater, false);
+      _saveCheckboxState(checkboxKeyLang, false);
+      _saveCheckboxState(checkboxKeyExfo, false);
+      _saveCheckboxState(checkboxKeyShave, false);
+      _saveCheckboxState(checkboxKeyGym, false);
+    }
   }
 }

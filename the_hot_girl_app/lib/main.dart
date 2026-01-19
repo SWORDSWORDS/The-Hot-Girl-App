@@ -29,9 +29,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: pinkWhite.withValues(alpha: 1.0),
         colorScheme: ColorScheme.fromSeed(
-          seedColor: pink3.withValues(alpha: 1.0),
+          seedColor: pink2.withValues(alpha: 1.0),
         ),
-        textTheme: GoogleFonts.alluraTextTheme(),
+        textTheme: GoogleFonts.rochesterTextTheme(),
         useMaterial3: true,
       ),
       initialRoute: "home",
