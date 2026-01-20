@@ -8,6 +8,7 @@ import 'daily_todo.dart';
 import 'weekly_log.dart';
 import 'count_calories.dart';
 import 'skincare.dart';
+import 'washday.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 //FUNCTIONS/////////////////////////////////////////////////////////////////////////////////////
@@ -56,6 +57,9 @@ class MyApp extends StatelessWidget {
 
           case 'skincare':
             return MaterialPageRoute(builder: (context) => const Skincare());
+
+          case 'washday':
+            return MaterialPageRoute(builder: (context) => const Washday());
 
           case 'weeklyLog':
             return MaterialPageRoute(

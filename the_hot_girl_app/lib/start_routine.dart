@@ -101,7 +101,7 @@ class _StartRoutine extends State<StartRoutine> {
                       style: TextStyle(fontSize: 30),
                     ),
                     //when the button is pressed, go to the Weekly Log page
-                    onPressed: () => Navigator.pushNamed(context, 'weeklyLog'),
+                    onPressed: () => Navigator.pushNamed(context, 'washday'),
                   ),
                 ),
               ),
