@@ -73,7 +73,7 @@ class _Washday extends State<Washday> {
               Padding(
                 padding: const EdgeInsets.all(0),
                 child: Text(
-                  "2. Shampoo 🧼",
+                  "3. Shampoo 🧼",
                   style: TextStyle(color: textColor, fontSize: fontSizeVal),
                 ),
               ),

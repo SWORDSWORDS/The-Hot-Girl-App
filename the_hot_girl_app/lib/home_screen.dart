@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'create_bottom_nav.dart';
 import 'theme_color_palette.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 //CLASSES///////////////////////////////////////////////////////////////////////////////////////
 //HomePage is Stateful. It calls on _HomePageState
@@ -36,15 +37,18 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               //Title Text
-              Padding(
-                padding: const EdgeInsets.all(padVal),
-                child: Text(
-                  "The H🔥t Girl App🎀",
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.allura(
-                    fontSize: 60.0,
-                    color: pink2.withValues(alpha: 1.0),
-                    fontWeight: FontWeight.bold,
+              GestureDetector(
+                onDoubleTap: () => playSound(),
+                child: Padding(
+                  padding: const EdgeInsets.all(padVal),
+                  child: Text(
+                    "The H🔥t Girl App🎀",
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.allura(
+                      fontSize: 60.0,
+                      color: pink2.withValues(alpha: 1.0),
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
@@ -147,5 +151,11 @@ class _HomePageState extends State<HomePage> {
       //creates the bottom navigator menu (see create_bottom_nav.dart)
       bottomNavigationBar: BottomNav(initialIndex),
     );
+  }
+
+  ////////////////////////////////////////////////////////////FUNCTIONS///////////
+  void playSound() async {
+    final player = AudioPlayer();
+    await player.play(AssetSource("sounds/material-gworl.mp3"));
   }
 }

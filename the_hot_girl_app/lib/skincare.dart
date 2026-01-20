@@ -4,6 +4,7 @@ import 'create_bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:async';
+import 'package:audioplayers/audioplayers.dart';
 
 //CLASSES////////////////////////////////////////////////////////////////////
 class Skincare extends StatefulWidget {
@@ -188,6 +189,7 @@ class _Skincare extends State<Skincare> {
       if (_start == 1) {
         setState(() {
           isButtonVis = true;
+          playSound();
           timer.cancel();
           _start = 60;
         });
@@ -197,5 +199,10 @@ class _Skincare extends State<Skincare> {
         });
       }
     });
+  }
+
+  void playSound() async {
+    final player = AudioPlayer();
+    await player.play(AssetSource("sounds/japanese-eas-alarm.mp3"));
   }
 }
