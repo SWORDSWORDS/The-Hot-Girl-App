@@ -61,7 +61,7 @@ class _DailyTodo extends State<DailyTodo> {
             Padding(
               padding: const EdgeInsets.all(padVal),
               child: Text(
-                "🎀To Do🐇: ",
+                "🎀To Do🐇",
                 textAlign: TextAlign.center,
                 style: GoogleFonts.allura(
                   fontSize: 60.0,

@@ -52,7 +52,7 @@ class _CountCals extends State<CountCals> {
             Padding(
               padding: const EdgeInsets.all(padVal),
               child: Text(
-                "Count Calories 🍰: ",
+                "Count Calories 🍰",
                 textAlign: TextAlign.center,
                 style: GoogleFonts.allura(
                   fontSize: 49.0,
