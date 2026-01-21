@@ -36,10 +36,6 @@ class _BottomNavState extends State<BottomNav> {
           icon: const Icon(Icons.home_outlined),
           label: 'Home',
         ),
-        BottomNavigationBarItem(
-          icon: const Icon(Icons.arrow_forward),
-          label: 'Arrow Forward',
-        ),
       ],
       currentIndex: _selectedIndex,
       selectedItemColor: pinkWhite.withValues(alpha: 1.0),
@@ -61,12 +57,11 @@ class _BottomNavState extends State<BottomNav> {
     //depending on the current value for _selectedIndex, navigate to the highlighted icon's corresponding page
     switch (_selectedIndex) {
       case 0:
-        Navigator.pushNamed(context, 'home');
+        if (Navigator.canPop(context)) {
+          Navigator.pop(context);
+        }
         break;
       case 1:
-        Navigator.pushNamed(context, 'home');
-        break;
-      case 2:
         Navigator.pushNamed(context, 'home');
         break;
     }

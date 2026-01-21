@@ -59,7 +59,7 @@ class _StartRoutine extends State<StartRoutine> {
                     ),
                     child: const Text('Gym🔥', style: TextStyle(fontSize: 30)),
                     //when the button is pressed, go to the Daily Todo page
-                    onPressed: () => Navigator.pushNamed(context, 'dailyTodo'),
+                    onPressed: () => Navigator.pushNamed(context, 'gym'),
                   ),
                 ),
               ),
