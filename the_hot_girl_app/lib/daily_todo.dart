@@ -5,13 +5,13 @@ import 'create_bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'globals.dart' as globals;
 
 //CLASSES////////////////////////////////////////////////////////////////////
 class DailyTodo extends StatefulWidget {
   const DailyTodo({super.key});
 
   final String title = "🐇To Do🎀:";
-
   @override
   State<DailyTodo> createState() => _DailyTodo();
 }
@@ -29,6 +29,7 @@ class _DailyTodo extends State<DailyTodo> {
   bool _isCheckedGym = false;
   bool _isCheckedExfo = false;
   bool _isCheckedShave = false;
+  bool _isCheckedSkin = false;
   bool hasBuiltOnce = false;
   String checkboxKeySuppl = "isSupplChecked";
   String checkboxKeyWater = "isWaterChecked";
@@ -36,19 +37,21 @@ class _DailyTodo extends State<DailyTodo> {
   String checkboxKeyGym = "isGymChecked";
   String checkboxKeyExfo = "isExfoChecked";
   String checkboxKeyShave = "isShaveChecked";
+  String checkboxKeySkin = "isSkinChecked";
 
   @override
   Widget build(BuildContext context) {
     //padVal is the value for how much padding is around each button.
     const double padVal = 10;
-    // Load stored state
-    _loadCheckboxState();
 
     //reset all values if a day has passed
     if (!hasBuiltOnce) {
       _resetIfNewDay();
       hasBuiltOnce = true;
     }
+
+    // Load stored state
+    _loadCheckboxState();
 
     //scaffold that makes the UI for the homepage
     return Scaffold(
@@ -228,6 +231,31 @@ class _DailyTodo extends State<DailyTodo> {
                 ),
               ),
             },
+
+            //Checkbox for Skincare
+            Padding(
+              padding: const EdgeInsets.all(0),
+              child: CheckboxListTile(
+                title: Text(
+                  "Skincare",
+                  style: TextStyle(fontSize: 34.2, color: textColor),
+                ),
+                value: _isCheckedSkin, // The current value
+                onChanged: (bool? newValue) {
+                  setState(() {
+                    _isCheckedSkin =
+                        newValue ?? false; // Update the state when tapped
+                  });
+                  _saveCheckboxState(checkboxKeySkin, _isCheckedSkin);
+                },
+                activeColor: actvColor,
+                checkColor: chckColor,
+                side: BorderSide(
+                  color: textColor, // Border color when unselected
+                  width: 1.5,
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -254,6 +282,13 @@ class _DailyTodo extends State<DailyTodo> {
       _isCheckedExfo = prefs.getBool(checkboxKeyExfo) ?? false;
       _isCheckedShave = prefs.getBool(checkboxKeyShave) ?? false;
       _isCheckedGym = prefs.getBool(checkboxKeyGym) ?? false;
+      _isCheckedSkin = prefs.getBool(checkboxKeySkin) ?? false;
+
+      globals.isCheckedSupplGlobal = _isCheckedSuppl;
+      globals.isCheckedWaterGlobal = _isCheckedWater;
+      globals.isCheckedLangGlobal = _isCheckedLang;
+      globals.isCheckedGymGlobal = _isCheckedGym;
+      globals.isCheckedSkinGlobal = _isCheckedSkin;
     });
   }
 
@@ -267,6 +302,12 @@ class _DailyTodo extends State<DailyTodo> {
       _saveCheckboxState(checkboxKeyExfo, false);
       _saveCheckboxState(checkboxKeyShave, false);
       _saveCheckboxState(checkboxKeyGym, false);
+      _saveCheckboxState(checkboxKeySkin, false);
+      globals.isCheckedSupplGlobal = false;
+      globals.isCheckedWaterGlobal = false;
+      globals.isCheckedLangGlobal = false;
+      globals.isCheckedGymGlobal = false;
+      globals.isCheckedSkinGlobal = false;
     }
   }
 }

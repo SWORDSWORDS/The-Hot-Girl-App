@@ -6,6 +6,7 @@ import 'create_bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'globals.dart' as globals;
 
 //CLASSES////////////////////////////////////////////////////////////////////
 class CountCals extends StatefulWidget {
@@ -23,6 +24,7 @@ class _CountCals extends State<CountCals> {
   int calMax = 1520;
   int calEntered = 0;
   String calEnteredKey = "";
+  bool isDeficit = true;
   final inputController = TextEditingController();
   Color textColor = pink3.withValues(alpha: 1.0);
 
@@ -32,14 +34,15 @@ class _CountCals extends State<CountCals> {
   Widget build(BuildContext context) {
     //padVal is the value for how much padding is around each button.
     const double padVal = 10;
-    // Load stored state
-    _loadState();
 
     //reset all values if a day has passed
     if (!hasBuiltOnce) {
       _resetIfNewDay();
       hasBuiltOnce = true;
     }
+
+    // Load stored state
+    _loadState();
 
     //scaffold that makes the UI for the homepage
     return Scaffold(
@@ -127,11 +130,17 @@ class _CountCals extends State<CountCals> {
     prefs.setInt(key, value);
   }
 
-  //load checkbox states
+  //load state
   void _loadState() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       calEntered = prefs.getInt(calEnteredKey) ?? 0;
+      if (calEntered > calMax) {
+        isDeficit = false;
+      } else {
+        isDeficit = true;
+      }
+      globals.isDeficitGlobal = isDeficit;
     });
   }
 
@@ -140,6 +149,7 @@ class _CountCals extends State<CountCals> {
     bool isNewDay = await DayChecker.isNewDay();
     if (isNewDay) {
       _saveState(calEnteredKey, 0);
+      globals.isDeficitGlobal = true;
     }
   }
 }
