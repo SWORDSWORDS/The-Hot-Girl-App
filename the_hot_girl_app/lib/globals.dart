@@ -4,3 +4,4 @@ bool isCheckedLangGlobal = false;
 bool isCheckedGymGlobal = false;
 bool isCheckedSkinGlobal = false;
 bool isDeficitGlobal = true;
+bool dayHasChanged = false;

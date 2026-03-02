@@ -24,10 +24,8 @@ class _Gym extends State<Gym> {
   bool isButtonVis = true;
   bool isWeek1 = false;
   bool isWeek2 = false;
-  Uri urlVariable1 = Uri();
-  Uri urlVariable2 = Uri();
-  String variableTitle1 = "";
-  String variableTitle2 = "";
+  Uri urlVariable = Uri();
+  String variableTitle = "";
   String title = "";
 
   @override
@@ -80,7 +78,7 @@ class _Gym extends State<Gym> {
                 padding: const EdgeInsets.all(padVal),
                 child: InkWell(
                   child: Text(
-                    '1. Warm Up',
+                    '1. Warm Up🔥',
                     style: TextStyle(
                       fontSize: fontSizeVal,
                       color: textColor,
@@ -98,7 +96,8 @@ class _Gym extends State<Gym> {
                 padding: const EdgeInsets.all(padVal),
                 child: InkWell(
                   child: Text(
-                    variableTitle1,
+                    variableTitle,
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: fontSizeVal,
                       color: textColor,
@@ -107,43 +106,25 @@ class _Gym extends State<Gym> {
                       decorationStyle: TextDecorationStyle.dotted,
                     ),
                   ),
-                  onTap: () => launchUrl(urlVariable1),
+                  onTap: () => launchUrl(urlVariable),
                 ),
               ),
 
               //step 3
               Padding(
-                padding: const EdgeInsets.all(padVal),
-                child: InkWell(
-                  child: Text(
-                    variableTitle2,
-                    style: TextStyle(
-                      fontSize: fontSizeVal,
-                      color: textColor,
-                      decoration: TextDecoration.underline,
-                      decorationColor: underlineColor,
-                      decorationStyle: TextDecorationStyle.dotted,
-                    ),
-                  ),
-                  onTap: () => launchUrl(urlVariable2),
+                padding: const EdgeInsets.all(0),
+                child: Text(
+                  "3. 30 minutes Cardio 🫀",
+                  style: TextStyle(color: textColor, fontSize: fontSizeVal),
                 ),
               ),
 
               //step 4
               Padding(
-                padding: const EdgeInsets.all(0),
-                child: Text(
-                  "4. One Hour Cardio 🫀",
-                  style: TextStyle(color: textColor, fontSize: fontSizeVal),
-                ),
-              ),
-
-              //step 5
-              Padding(
                 padding: const EdgeInsets.all(padVal),
                 child: InkWell(
                   child: Text(
-                    "5. Cool Down",
+                    "4. Cool Down❄️",
                     style: TextStyle(
                       fontSize: fontSizeVal,
                       color: textColor,
@@ -168,35 +149,23 @@ class _Gym extends State<Gym> {
   ////////////////////////////////////////////////////////////////////////////////FUNCTIONS///////////////////
   void setVariables() {
     var curWeekDay = DateTime.now().weekday;
-    if ((isWeek1 &&
-            (curWeekDay == DateTime.monday || curWeekDay == DateTime.friday)) ||
+    if ((isWeek1 && curWeekDay == DateTime.monday) ||
         (isWeek2 && curWeekDay == DateTime.wednesday)) {
-      variableTitle1 = "2. Pelvic Floor";
-      urlVariable1 = Uri.parse(
-        "https://youtu.be/Ip7wrGxqQhM?si=EmtrtvlsMykIodI-",
-      ); //link to pelvic excercises
-
-      variableTitle2 = "3. Hips";
-      urlVariable2 = Uri.parse(
-        "https://youtu.be/tkj4YCcHdfA?si=8v0wT0FQ6WAUva9t",
-      ); //link to hip excercises
-    } else if ((isWeek2 &&
-            (curWeekDay == DateTime.monday || curWeekDay == DateTime.friday)) ||
-        (isWeek1 && curWeekDay == DateTime.wednesday)) {
-      variableTitle1 = "2. Abs";
-      urlVariable1 = Uri.parse(
-        "https://youtu.be/T4YKn7lubBo?si=FdHt9A3EB561eCNG",
-      ); //link to ab excercises
-
-      variableTitle2 = "3. Arms";
-      urlVariable2 = Uri.parse(
-        "https://youtube.com/shorts/kKOA4RD6j1Q?si=0roOGFN-lA8sPPpr",
-      ); //link to arm excercises
+      variableTitle = "2. Pelvic Floor and Deep Core🎯";
+      urlVariable = Uri.parse(
+        "https://www.youtube.com/watch?v=Ip7wrGxqQhM&list=PLdMxZwVjwc1g6M0MKODDWxwBFJOG8aVYM&index=2",
+      );
+    } else if ((isWeek1 && curWeekDay == DateTime.wednesday) ||
+        (isWeek2 && curWeekDay == DateTime.monday)) {
+      variableTitle = "2. Arms and Glutes💪🏿🍑";
+      urlVariable = Uri.parse(
+        "https://docs.google.com/document/d/1dKPetoAVJamVREPZ3_Cx1GoVXNf_vIxQ0GxVp1eJIAg/edit?tab=t.0",
+      );
     } else {
-      variableTitle1 = "2. Today is not a gym day, gorg";
-      variableTitle2 = "3. But clcik here for all workouts";
-      urlVariable2 = Uri.parse(
-        "https://youtube.com/playlist?list=PLdMxZwVjwc1g6M0MKODDWxwBFJOG8aVYM&si=ho3GVqOmkMOz0qTW",
+      variableTitle =
+          "2. It's not a gym day gorg, but click here for all workouts 💅🏿✨";
+      urlVariable = Uri.parse(
+        "https://youtube.com/playlist?list=PLdMxZwVjwc1g6M0MKODDWxwBFJOG8aVYM&si=KE2SeFwiLsDwahJ3",
       );
     }
   }

@@ -54,9 +54,13 @@ class _WeeklyLog extends State<WeeklyLog> {
       "Sat",
       "Sun",
     ];
+    var weeknum = DateTime.now().weekNumber;
+    if (DateTime.now().weekday == DateTime.sunday) {
+      weeknum = DateTime.now().weekNumber - 1;
+    }
     DateTime startDateTime = dateTimeFromWeekNumber(
       DateTime.now().year,
-      DateTime.now().weekNumber,
+      weeknum,
     );
     String startString = DateFormat(
       'MM/dd/yyyy',

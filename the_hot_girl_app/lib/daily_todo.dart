@@ -151,8 +151,7 @@ class _DailyTodo extends State<DailyTodo> {
 
             //Checkbox for Gym
             if (DateTime.now().weekday == DateTime.monday ||
-                DateTime.now().weekday == DateTime.wednesday ||
-                DateTime.now().weekday == DateTime.friday) ...{
+                DateTime.now().weekday == DateTime.wednesday) ...{
               Padding(
                 padding: const EdgeInsets.all(0),
                 child: CheckboxListTile(
@@ -294,7 +293,7 @@ class _DailyTodo extends State<DailyTodo> {
 
   //reset checkboxes daily
   void _resetIfNewDay() async {
-    bool isNewDay = await DayChecker.isNewDay();
+    bool isNewDay = await DayChecker.isNewDay("lastCheckedDayDTD");
     if (isNewDay) {
       _saveCheckboxState(checkboxKeySuppl, false);
       _saveCheckboxState(checkboxKeyWater, false);

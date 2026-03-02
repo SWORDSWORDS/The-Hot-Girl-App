@@ -39,7 +39,7 @@ class _StartRoutine extends State<StartRoutine> {
                   "🎀Pick a Routine🎀",
                   textAlign: TextAlign.center,
                   style: GoogleFonts.allura(
-                    fontSize: 46.8,
+                    fontSize: 46.7,
                     color: pink2.withValues(alpha: 1.0),
                     fontWeight: FontWeight.bold,
                   ),
@@ -76,7 +76,7 @@ class _StartRoutine extends State<StartRoutine> {
                       foregroundColor: textColor,
                     ),
                     child: const Text(
-                      'Skincare🧴',
+                      'Skincare 🌿',
                       style: TextStyle(fontSize: 30),
                     ),
                     //when the button is pressed, go to the Weekly Log page
