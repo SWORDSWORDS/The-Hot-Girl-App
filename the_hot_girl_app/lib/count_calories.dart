@@ -21,7 +21,7 @@ class CountCals extends StatefulWidget {
 class _CountCals extends State<CountCals> {
   //declare variables
   int initialIndex = 0;
-  int calMax = 1520;
+  int calMax = 1553;
   int calEntered = 0;
   String calEnteredKey = "";
   bool isDeficit = true;
@@ -146,7 +146,7 @@ class _CountCals extends State<CountCals> {
 
   //reset checkboxes daily
   void _resetIfNewDay() async {
-    bool isNewDay = await DayChecker.isNewDay();
+    bool isNewDay = await DayChecker.isNewDay("lastCheckedDayCC");
     if (isNewDay) {
       _saveState(calEnteredKey, 0);
       globals.isDeficitGlobal = true;

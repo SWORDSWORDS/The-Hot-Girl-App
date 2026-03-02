@@ -18,6 +18,13 @@ class _Washday extends State<Washday> {
   //declare variables
   int initialIndex = 0;
   String step9Result = "Leave-in Conditioner 🍯";
+  String step1Result = "Shampoo w/ wigcap🧼🪥";
+  String step2Result = "Condition w/ wigcap💧🪥";
+  String step3Result = "Blowdry♨️";
+  String step4Result = "Leave-in Conditioner Spray🍯";
+  String step5Result = "Mousse Scalp☁️";
+  String step6Result = "Durag🎀";
+  String step7Result = "Steamer(showercap and durag)💨";
   Color textColor = pink2.withValues(alpha: 1.0);
   bool isButtonVis = true;
 
@@ -25,8 +32,14 @@ class _Washday extends State<Washday> {
   Widget build(BuildContext context) {
     //padVal is the value for how much padding is around each button.
     const double padVal = 20;
-    const double fontSizeVal = 35.0;
-    String step9 = "9. $step9Result";
+    const double fontSizeVal = 30.0;
+    String step1 = "1. $step1Result";
+    String step2 = "2. $step2Result";
+    String step3 = "3. $step3Result";
+    String step4 = "4. $step4Result";
+    String step5 = "5. $step5Result";
+    String step6 = "6. $step6Result";
+    String step7 = "7. $step7Result";
 
     //scaffold that makes the UI for the homepage
     return Scaffold(
@@ -55,7 +68,7 @@ class _Washday extends State<Washday> {
               Padding(
                 padding: const EdgeInsets.all(0),
                 child: Text(
-                  "1. Uninstall 🤍",
+                  step1,
                   style: TextStyle(color: textColor, fontSize: fontSizeVal),
                 ),
               ),
@@ -64,7 +77,7 @@ class _Washday extends State<Washday> {
               Padding(
                 padding: const EdgeInsets.all(0),
                 child: Text(
-                  "2. Detangle 🌿",
+                  step2,
                   style: TextStyle(color: textColor, fontSize: fontSizeVal),
                 ),
               ),
@@ -73,7 +86,7 @@ class _Washday extends State<Washday> {
               Padding(
                 padding: const EdgeInsets.all(0),
                 child: Text(
-                  "3. Shampoo 🧼",
+                  step3,
                   style: TextStyle(color: textColor, fontSize: fontSizeVal),
                 ),
               ),
@@ -82,7 +95,7 @@ class _Washday extends State<Washday> {
               Padding(
                 padding: const EdgeInsets.all(0),
                 child: Text(
-                  "4. Rinse 💧",
+                  step4,
                   style: TextStyle(color: textColor, fontSize: fontSizeVal),
                 ),
               ),
@@ -91,7 +104,7 @@ class _Washday extends State<Washday> {
               Padding(
                 padding: const EdgeInsets.all(0),
                 child: Text(
-                  "5. Conditioner 🧴",
+                  step5,
                   style: TextStyle(color: textColor, fontSize: fontSizeVal),
                 ),
               ),
@@ -100,7 +113,7 @@ class _Washday extends State<Washday> {
               Padding(
                 padding: const EdgeInsets.all(0),
                 child: Text(
-                  "6. Steamer 💨",
+                  step6,
                   style: TextStyle(color: textColor, fontSize: fontSizeVal),
                 ),
               ),
@@ -109,63 +122,33 @@ class _Washday extends State<Washday> {
               Padding(
                 padding: const EdgeInsets.all(0),
                 child: Text(
-                  "7. Rinse 💧",
-                  style: TextStyle(color: textColor, fontSize: fontSizeVal),
+                  step7,
+                  style: TextStyle(color: textColor, fontSize: fontSizeVal - 2),
                 ),
               ),
 
-              //step 8
-              Padding(
-                padding: const EdgeInsets.all(0),
-                child: Text(
-                  "8. Blowdry♨️",
-                  style: TextStyle(color: textColor, fontSize: fontSizeVal),
-                ),
-              ),
-
-              //step 9
-              Padding(
-                padding: const EdgeInsets.all(0),
-                child: Text(
-                  step9,
-                  style: TextStyle(color: textColor, fontSize: fontSizeVal),
-                ),
-              ),
-
-              //step 10
-              Padding(
-                padding: const EdgeInsets.all(0),
-                child: Text(
-                  "10. Blue Magic💙",
-                  style: TextStyle(color: textColor, fontSize: fontSizeVal),
-                ),
-              ),
-
-              //Are We Adding Heat Button
+              //Big Washday Button
               Visibility(
                 visible: isButtonVis,
-                child: GestureDetector(
-                  onDoubleTap: () => _useHeat(),
-                  child: Padding(
-                    padding: const EdgeInsets.all(padVal),
-                    child: SizedBox(
-                      height: 100,
-                      width: 300,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: pink2.withValues(alpha: 1.0),
-                          foregroundColor: textColor,
-                        ),
-                        child: Text(
-                          "Use Heat",
-                          style: TextStyle(
-                            fontSize: 30,
-                            color: butter.withValues(alpha: 1.0),
-                          ),
-                        ),
-                        //when the button is pressed, go to the Daily Todo page
-                        onPressed: () => _useHeat,
+                child: Padding(
+                  padding: const EdgeInsets.all(padVal),
+                  child: SizedBox(
+                    height: 100,
+                    width: 300,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: pink2.withValues(alpha: 1.0),
+                        foregroundColor: textColor,
                       ),
+                      child: Text(
+                        "Do Big Washday",
+                        style: TextStyle(
+                          fontSize: 30,
+                          color: butter.withValues(alpha: 1.0),
+                        ),
+                      ),
+                      //when the button is pressed, change washday instructions
+                      onPressed: () => _bigWashDay(),
                     ),
                   ),
                 ),
@@ -181,10 +164,16 @@ class _Washday extends State<Washday> {
   }
 
   ////////////////////////////////////////////////////////////////////////////////FUNCTIONS///////////////////
-  ///// change 9th step for using heat
-  void _useHeat() {
+  ///// change steps to be for big wash day
+  void _bigWashDay() {
     setState(() {
-      step9Result = "Heat Protectant + \n     Heat♨️♨️";
+      step1Result = "Detangle🤍";
+      step2Result = "Shampoo🧼";
+      step3Result = "Clay Mask🌿";
+      step4Result = " Condition💧";
+      step5Result = "Blowdry♨️";
+      step6Result = "Leave-in Conditioner 🍯";
+      step7Result = "Blue Magic💙";
       isButtonVis = false;
     });
   }

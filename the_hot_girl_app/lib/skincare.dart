@@ -10,7 +10,7 @@ import 'package:audioplayers/audioplayers.dart';
 class Skincare extends StatefulWidget {
   const Skincare({super.key});
 
-  final String title = "Skincare🧴";
+  final String title = "Skincare🌿";
 
   @override
   State<Skincare> createState() => _Skincare();
@@ -33,7 +33,7 @@ class _Skincare extends State<Skincare> {
     const double fontSizeVal = 35.0;
 
     skinCycleResult = _skinCycle();
-    String step3 = "3. $skinCycleResult";
+    String step4 = "4. $skinCycleResult";
 
     //scaffold that makes the UI for the homepage
     return Scaffold(
@@ -46,7 +46,7 @@ class _Skincare extends State<Skincare> {
             Padding(
               padding: const EdgeInsets.all(padVal),
               child: Text(
-                "Skincare🧴",
+                "Skincare🌿",
                 textAlign: TextAlign.center,
                 style: GoogleFonts.allura(
                   fontSize: 65.0,
@@ -69,7 +69,7 @@ class _Skincare extends State<Skincare> {
             Padding(
               padding: const EdgeInsets.all(0),
               child: Text(
-                "2. Toner 🌿",
+                "2. Kojic Acid & Turmeric💛",
                 style: TextStyle(color: textColor, fontSize: fontSizeVal),
               ),
             ),
@@ -78,7 +78,7 @@ class _Skincare extends State<Skincare> {
             Padding(
               padding: const EdgeInsets.all(0),
               child: Text(
-                step3,
+                "3. Azelaic Acid Serum 🧪",
                 style: TextStyle(color: textColor, fontSize: fontSizeVal),
               ),
             ),
@@ -87,7 +87,7 @@ class _Skincare extends State<Skincare> {
             Padding(
               padding: const EdgeInsets.all(0),
               child: Text(
-                "4. Moisturizer 🧴",
+                step4,
                 style: TextStyle(color: textColor, fontSize: fontSizeVal),
               ),
             ),
@@ -96,33 +96,54 @@ class _Skincare extends State<Skincare> {
             Padding(
               padding: const EdgeInsets.all(0),
               child: Text(
-                "5. Aquaphor 🐌",
+                "5. Moisturizer ✨",
                 style: TextStyle(color: textColor, fontSize: fontSizeVal),
               ),
             ),
 
-            //Daily Todo Button
+            //step 6
+            Padding(
+              padding: const EdgeInsets.all(0),
+              child: Text(
+                "6. Aquaphor 🐌",
+                style: TextStyle(color: textColor, fontSize: fontSizeVal),
+              ),
+            ),
+
+            //step 7
+            Padding(
+              padding: const EdgeInsets.all(0),
+              child: Text(
+                "7. Niacinamide Body Lotion🐇",
+                style: TextStyle(color: textColor, fontSize: fontSizeVal - 2),
+              ),
+            ),
+
+            // timer Button
             Visibility(
               visible: isButtonVis,
               child: Padding(
                 padding: const EdgeInsets.all(padVal),
-                child: SizedBox(
-                  height: 100,
-                  width: 300,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: pink2.withValues(alpha: 1.0),
-                      foregroundColor: textColor,
-                    ),
-                    child: Text(
-                      "Start 1 Min Timer",
-                      style: TextStyle(
-                        fontSize: 30,
-                        color: butter.withValues(alpha: 1.0),
+                child: GestureDetector(
+                  onDoubleTap: () => startToothTimer(),
+                  child: SizedBox(
+                    height: 100,
+                    width: 300,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: pink2.withValues(alpha: 1.0),
+                        foregroundColor: textColor,
                       ),
+                      child: Text(
+                        "Start Timer",
+                        style: TextStyle(
+                          fontSize: 30,
+                          color: butter.withValues(alpha: 1.0),
+                        ),
+                      ),
+                      //when the button is pressed, go to the Daily Todo page
+                      onPressed: () => startSkincareTimer(),
                     ),
-                    //when the button is pressed, go to the Daily Todo page
-                    onPressed: () => startTimer(),
                   ),
                 ),
               ),
@@ -166,21 +187,21 @@ class _Skincare extends State<Skincare> {
       case DateTime.tuesday:
         return "Exfoliate🧽 + \n    Vitamin C🍊";
       case DateTime.wednesday:
-        return "Serum💧";
+        return "Rest Day💧";
       case DateTime.thursday:
         return "Retinal💦";
       case DateTime.friday:
         return "Exfoliate🧽 +  \n    Vitamin C🍊";
       case DateTime.saturday:
-        return "Serum💧";
+        return "Rest Day💧";
       case DateTime.sunday:
-        return "Serum💧";
+        return "Rest Day💧";
       default:
         return "If you're seeing this text, the app is broke💖";
     }
   }
 
-  void startTimer() {
+  void startSkincareTimer() {
     setState(() {
       isButtonVis = false;
     });
@@ -192,6 +213,37 @@ class _Skincare extends State<Skincare> {
           playSound();
           timer.cancel();
           _start = 60;
+        });
+      } else {
+        setState(() {
+          _start--;
+        });
+      }
+    });
+  }
+
+  void startToothTimer() {
+    setState(() {
+      isButtonVis = false;
+    });
+    _start = 120;
+    const intervalOneSec = Duration(seconds: 1);
+    _timer = Timer.periodic(intervalOneSec, (Timer timer) {
+      if (_start == 1) {
+        setState(() {
+          isButtonVis = true;
+          playSound();
+          timer.cancel();
+          _start = 60;
+        });
+      } else if (_start == 100 ||
+          _start == 80 ||
+          _start == 60 ||
+          _start == 40 ||
+          _start == 20) {
+        setState(() {
+          playSound();
+          _start--;
         });
       } else {
         setState(() {
